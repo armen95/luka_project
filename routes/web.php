@@ -41,6 +41,7 @@ Route::group(['middleware'=>['web']], function(){
 				Route::get('/freelancers', 'AdminController@showFreelancers');
 				Route::get('/addfreelancer', 'AdminController@addFreelancer');
 				Route::post('/saveFreelancer', 'AdminController@saveFreelancer');
+				Route::post('/deleteFreelancer', 'AdminController@deleteFreelancer');
 			});
 
 		});

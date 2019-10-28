@@ -27,6 +27,23 @@ class AdminController extends Controller
 		return view('admin/addFreelancer');
     }
 
+    public function deleteFreelancer(Request $request){
+		$id = $request->id;
+		if(isset($id) && !empty($id)){
+			$row = Freelancers::find($id);
+			$row->delete();
+			if($row){
+				echo json_encode(array('success' => true));die;
+			}
+			else{
+				echo json_encode(array('success' => false));die;
+			}
+		}
+		else{
+			echo json_encode(array('success' => false));die;
+		}
+	}
+
     public function saveFreelancer(Request $request)
     {
 
