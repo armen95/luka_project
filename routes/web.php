@@ -38,6 +38,9 @@ Route::group(['middleware'=>['web']], function(){
 			Route::group(['middleware' => 'admin'], function(){
 
 				Route::get('/profile', 'AdminController@index');
+				Route::get('/freelancers', 'AdminController@showFreelancers');
+				Route::get('/addfreelancer', 'AdminController@addFreelancer');
+				Route::post('/saveFreelancer', 'AdminController@saveFreelancer');
 			});
 
 		});
