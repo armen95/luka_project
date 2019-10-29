@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 use App\Freelancers;
-
+use App\User;
+use Auth;
 
 class AdminController extends Controller
 {
@@ -26,6 +28,30 @@ class AdminController extends Controller
     {
 		return view('admin/addFreelancer');
     }
+
+    public function settings()
+	{
+		$user = Auth::user();
+
+		return view('admin/settings')->with('user', $user);
+	}
+
+	public function editAccount(Request $request)
+	{
+		$user_id = Auth::user()->id;
+		$firstname = $request->firstname;
+		$lastname = $request->lastname;
+		$password = $request->password;
+		$confirmpass = $request->confirmpass;
+
+		$user = User::find($user_id);
+		$user->firstname = $firstname;
+		$user->lastname = $lastname;
+		$user->password = Hash::make($password);
+		$user->save();
+		return redirect()->back();
+
+	}
 
     public function deleteFreelancer(Request $request){
 		$id = $request->id;
@@ -142,6 +168,8 @@ class AdminController extends Controller
         }
 
 	}
+
+
 
 
 }

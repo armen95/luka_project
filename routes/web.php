@@ -40,10 +40,12 @@ Route::group(['middleware'=>['web']], function(){
 				Route::get('/profile', 'AdminController@index');
 				Route::get('/freelancers', 'AdminController@showFreelancers');
 				Route::get('/addfreelancer', 'AdminController@addFreelancer');
+				Route::get('/settings', 'AdminController@settings');
 				Route::post('/saveFreelancer', 'AdminController@saveFreelancer');
 				Route::post('/deleteFreelancer', 'AdminController@deleteFreelancer');
 				Route::post('/getFreelancer', 'AdminController@getFreelancer');
 				Route::post('/editFreelancer', 'AdminController@editFreelancer');
+				Route::post('/editAccount', 'AdminController@editAccount');
 			});
 
 		});

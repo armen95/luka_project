@@ -22,7 +22,7 @@
 					<a href="#" class="list-group-item list-group-item-action bg-light">Clients</a>
 					<a href="#" class="list-group-item list-group-item-action bg-light">Projects</a>
 					<a href="#" class="list-group-item list-group-item-action bg-light">Orders</a>
-					<a href="#" class="list-group-item list-group-item-action bg-light">Settings</a>
+					<a href="/admin/settings" class="list-group-item list-group-item-action bg-light">Settings</a>
 		      	</div>
 		    </div>
 		    <div id="page-content-wrapper">
