@@ -82,6 +82,66 @@ class AdminController extends Controller
 
             return redirect()->back();
         }
+	}
+
+	public function getFreelancer(Request $request)
+	{
+		$id = $request->id;
+        if(isset($id) && !empty($id)){
+            $result = Freelancers::find($id);
+            echo json_encode(array(
+                'success' => true,
+                'result' => $result
+            ));
+            die;
+        }
+        else{
+            echo json_encode(array(
+                'success' => false,
+                'result'  => ''
+            ));
+            die;
+        }
+	}
+
+	public function editFreelancer(Request $request)
+	{
+		$freelancer_id = $request->freelancer_id;
+        $name = $request->name;
+        $email = $request->email;
+        $contact = $request->contact;
+        $source_lang = $request->source_lang;
+        $target_lang = $request->target_lang;
+        $hourly_payment = $request->hourly_payment;
+        $word_payment = $request->word_payment;
+        $speciality = $request->speciality;
+        $availability = $request->availability;
+        $tracking_system = $request->tracking_system;
+        if(isset($freelancer_id) && !empty($freelancer_id)){
+            $freelancer = Freelancers::find($freelancer_id);
+            $freelancer->name = $name;
+            $freelancer->email = $email;
+            $freelancer->contact = $contact;
+            $freelancer->source_lang = $source_lang;
+            $freelancer->target_lang = $target_lang;
+            $freelancer->hourly_payment = $hourly_payment;
+            $freelancer->word_payment = $word_payment;
+            $freelancer->speciality = $speciality;
+            $freelancer->availability = $availability;
+            $freelancer->tracking_system = $tracking_system;
+            $freelancer->save();
+            if($freelancer){
+				return redirect()->back();
+            }
+            else{
+				return redirect()->back()->with('not_setup', "Failed to update freelancer");
+            }
+        }
+        else{
+			return redirect()->back()->with('not_setup', "Freelancer ID parameter is missing");
+        }
 
 	}
+
+
 }
