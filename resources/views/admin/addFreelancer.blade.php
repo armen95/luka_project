@@ -34,12 +34,12 @@
 					<div class="form-group">
 						<p class="text-danger">{{$errors->first('hourly_payment')}}</p>
 						<label for="hourly_payment">Hourly payment:</label>
-						<input type="number" class="form-control" value="{{ old('hourly_payment') }}" name = "hourly_payment" id="hourly_payment">
+						<input type="text" class="form-control" value="{{ old('hourly_payment') }}" name = "hourly_payment" id="hourly_payment">
 					</div>
 					<div class="form-group">
 						<p class="text-danger">{{$errors->first('word_payment')}}</p>
 						<label for="word_payment">Word payment:</label>
-						<input type="number" class="form-control" value="{{ old('word_payment') }}" name = "word_payment" id="word_payment">
+						<input type="text" class="form-control" value="{{ old('word_payment') }}" name = "word_payment" id="word_payment">
 					</div>
 					<div class="form-group">
 						<p class="text-danger">{{$errors->first('speciality')}}</p>
@@ -58,6 +58,7 @@
 					</div>
 					<div class="form-group text-right">
 						<button type="submit" class="btn btn-primary">Save</button>
+						<a href="/admin/freelancers" class="btn btn-primary">Cancel</a>
 					</div>
 
 				</form>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\Freelancers;
+use App\Clients;
 use App\User;
 use Auth;
 
@@ -24,9 +25,21 @@ class AdminController extends Controller
 		return view('admin/freelancers')->with('freelancers', $freelancers);
     }
 
+    public function showClients()
+    {
+		$clients = Clients::all();
+
+		return view('admin/clients')->with('clients', $clients);
+	}
+
     public function addFreelancer()
     {
 		return view('admin/addFreelancer');
+    }
+
+    public function addClient()
+    {
+		return view('admin/addClient');
     }
 
     public function settings()
@@ -75,15 +88,7 @@ class AdminController extends Controller
 
 		$rules = [
             'name' => 'required',
-            'email' => 'required|email|unique:contractors,email',
-            'contact' =>"required",
-            'source_lang'=> "required",
-            'target_lang'=> "required",
-            'hourly_payment'=> "required|numeric",
-            'word_payment'=> "required|numeric",
-            'speciality' =>'required',
-            'availability' => "required",
-            'tracking_system'=>'required',
+            'email' => 'email|unique:contractors,email'
 
         ];
 

@@ -9,6 +9,7 @@
 		<meta name="author" content="">
 		<link href="/css/bootstrap.min.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
 		<link href="/css/style.css" rel="stylesheet">
 	</head>
 	<body>
@@ -19,7 +20,7 @@
 		      	<div class="list-group list-group-flush">
 					<a href="/admin/profile" class="list-group-item list-group-item-action bg-light">Dashboard</a>
 					<a href="/admin/freelancers" class="list-group-item list-group-item-action bg-light">Freelancers</a>
-					<a href="#" class="list-group-item list-group-item-action bg-light">Clients</a>
+					<a href="/admin/clients" class="list-group-item list-group-item-action bg-light">Clients</a>
 					<a href="#" class="list-group-item list-group-item-action bg-light">Projects</a>
 					<a href="#" class="list-group-item list-group-item-action bg-light">Orders</a>
 					<a href="/admin/settings" class="list-group-item list-group-item-action bg-light">Settings</a>
@@ -55,6 +56,7 @@
 
 		<script src="/js/jquery.min.js"></script>
 		<script src="/js/bootstrap.bundle.min.js"></script>
+		<script type="text/javascript" src = "http://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
 		<script src="/js/script.js"></script>
 
 		<script>
@@ -68,6 +70,7 @@
 	                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 	            }
 	        });
+	        $('#freelancersTable').DataTable();
 		</script>
 	</body>
 </html>
