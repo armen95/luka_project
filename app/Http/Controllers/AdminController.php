@@ -83,6 +83,120 @@ class AdminController extends Controller
 		}
 	}
 
+
+
+	public function getClient(Request $request)
+	{
+		$id = $request->id;
+        if(isset($id) && !empty($id)){
+            $result = Clients::find($id);
+            echo json_encode(array(
+                'success' => true,
+                'result' => $result
+            ));
+            die;
+        }
+        else{
+            echo json_encode(array(
+                'success' => false,
+                'result'  => ''
+            ));
+            die;
+        }
+	}
+
+	public function editClient(Request $request)
+	{
+		$client_id = $request->client_id;
+        $name = $request->name;
+        $email = $request->email;
+        $legal_name = $request->legal_name;
+        $address = $request->address;
+        $post_index = $request->post_index;
+        $city = $request->city;
+        $country = $request->country;
+        $vat_number = $request->vat_number;
+        $contact_person = $request->contact_person;
+        $requirements = $request->requirements;
+        if(isset($client_id) && !empty($client_id)){
+            $client = Clients::find($client_id);
+            $client->name = $name;
+            $client->email = $email;
+            $client->legal_name = $legal_name;
+            $client->address = $address;
+            $client->post_index = $post_index;
+            $client->city = $city;
+            $client->country = $country;
+            $client->vat_number = $vat_number;
+            $client->contact_person = $contact_person;
+            $client->requirements = $requirements;
+            $client->save();
+            if($client){
+				return redirect()->back();
+            }
+            else{
+				return redirect()->back()->with('not_setup', "Failed to update client");
+            }
+        }
+        else{
+			return redirect()->back()->with('not_setup', "Client ID parameter is missing");
+        }
+
+	}
+
+
+
+    public function deleteClient(Request $request){
+		$id = $request->id;
+		if(isset($id) && !empty($id)){
+			$row = Clients::find($id);
+			$row->delete();
+			if($row){
+				echo json_encode(array('success' => true));die;
+			}
+			else{
+				echo json_encode(array('success' => false));die;
+			}
+		}
+		else{
+			echo json_encode(array('success' => false));die;
+		}
+	}
+
+
+	public function saveClient(Request $request)
+    {
+
+		$rules = [
+            'name' => 'required',
+            'email' => 'required|email|unique:clients,email',
+            'post_index' => 'numeric'
+
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return redirect()->back()->with('errors', $validator->errors())->withInput();
+        }
+        else{
+            Clients::create([
+                'name' => $request->name,
+                'legal_name' => $request->legal_name,
+                'address' =>$request->address,
+                'post_index'=> $request->post_index,
+                'city' =>$request->city,
+                'country' => $request->country,
+                'vat_number' => $request->vat_number,
+                'contact_person' => $request->contact_person,
+                'email' => $request->email,
+                'requirements' => $request->requirements
+            ]);
+
+            return redirect()->back();
+        }
+	}
+
     public function saveFreelancer(Request $request)
     {
 

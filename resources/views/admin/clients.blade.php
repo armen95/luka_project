@@ -68,4 +68,68 @@
 		</div>
 	</div>
 
+
+	<!-- Edit modal -->
+	<div id="editClientModal" class="modal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Edit Client</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<form action="/admin/editClient" method="post" id = "editClientForm">
+						{{ csrf_field() }}
+						<input type="hidden" name="client_id" id = "client_id" value="">
+						<div class="form-group">
+							<label for="name">Name:</label>
+							<input type="text" class="form-control" value="" name = "name" id="name">
+						</div>
+						<div class="form-group">
+							<label for="email">Email:</label>
+							<input type="text" class="form-control" value="" name = "email" id="email">
+						</div>
+						<div class="form-group">
+							<label for="legal_name">Legal name:</label>
+							<input type="text" class="form-control" value="" name = "legal_name" id="legal_name">
+						</div>
+						<div class="form-group">
+							<label for="address">Address:</label>
+							<input type="text" class="form-control" value="" name = "address" id="address">
+						</div>
+						<div class="form-group">
+							<label for="post_index">Post index:</label>
+							<input type="number" class="form-control" value="" name = "post_index" id="post_index">
+						</div>
+						<div class="form-group">
+							<label for="city">City:</label>
+							<input type="text" class="form-control" value="" name = "city" id="city">
+						</div>
+						<div class="form-group">
+							<label for="country">Country:</label>
+							<input type="text" class="form-control" value="" name = "country" id="country">
+						</div>
+						<div class="form-group">
+							<label for="vat_number">Vat number:</label>
+							<input type="text" class="form-control" value="" name = "vat_number" id="vat_number">
+						</div>
+						<div class="form-group">
+							<label for="contact_person">Contact person:</label>
+							<input type="text" class="form-control" value="" name = "contact_person" id="contact_person">
+						</div>
+						<div class="form-group">
+							<label for="requirements">Requirements:</label>
+							<textarea class="form-control" name = "requirements" id="requirements"></textarea>
+						</div>
+						<div class="form-group text-right">
+							<button type="submit" class="btn btn-primary">Save</button>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
 @stop

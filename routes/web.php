@@ -38,16 +38,24 @@ Route::group(['middleware'=>['web']], function(){
 			Route::group(['middleware' => 'admin'], function(){
 
 				Route::get('/profile', 'AdminController@index');
+				Route::get('/settings', 'AdminController@settings');
+				Route::post('/editAccount', 'AdminController@editAccount');
+
+				// Freelancers
 				Route::get('/freelancers', 'AdminController@showFreelancers');
 				Route::get('/addfreelancer', 'AdminController@addFreelancer');
-				Route::get('/settings', 'AdminController@settings');
+				Route::post('/getFreelancer', 'AdminController@getFreelancer');
+				Route::post('/saveFreelancer', 'AdminController@saveFreelancer');
+				Route::post('/editFreelancer', 'AdminController@editFreelancer');
+				Route::post('/deleteFreelancer', 'AdminController@deleteFreelancer');
+
+				// Clients
 				Route::get('/clients', 'AdminController@showClients');
 				Route::get('/addclient', 'AdminController@addClient');
-				Route::post('/saveFreelancer', 'AdminController@saveFreelancer');
-				Route::post('/deleteFreelancer', 'AdminController@deleteFreelancer');
-				Route::post('/getFreelancer', 'AdminController@getFreelancer');
-				Route::post('/editFreelancer', 'AdminController@editFreelancer');
-				Route::post('/editAccount', 'AdminController@editAccount');
+				Route::post('/saveClient', 'AdminController@saveClient');
+				Route::post('/deleteClient', 'AdminController@deleteClient');
+				Route::post('/editClient', 'AdminController@editClient');
+				Route::post('/getClient', 'AdminController@getClient');
 			});
 
 		});

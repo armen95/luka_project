@@ -70,7 +70,7 @@
 	                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 	            }
 	        });
-	        $('#freelancersTable').DataTable();
+	        $('#freelancersTable, #clientsTable').DataTable();
 		</script>
 	</body>
 </html>
