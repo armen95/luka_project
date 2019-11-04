@@ -21,8 +21,8 @@
 					<a href="/admin/profile" class="list-group-item list-group-item-action bg-light">Dashboard</a>
 					<a href="/admin/freelancers" class="list-group-item list-group-item-action bg-light">Freelancers</a>
 					<a href="/admin/clients" class="list-group-item list-group-item-action bg-light">Clients</a>
-					<a href="#" class="list-group-item list-group-item-action bg-light">Projects</a>
-					<a href="#" class="list-group-item list-group-item-action bg-light">Orders</a>
+					<!-- <a href="#" class="list-group-item list-group-item-action bg-light">Projects</a> -->
+					<a href="/admin/orders" class="list-group-item list-group-item-action bg-light">Orders</a>
 					<a href="/admin/settings" class="list-group-item list-group-item-action bg-light">Settings</a>
 		      	</div>
 		    </div>

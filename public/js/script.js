@@ -16,12 +16,30 @@ $(function() {
             })
         }
     });
+
     $('.delete-client').click(function(event) {
         var _this = $(this);
         var id = $(this).data('id');
         if(id != ''){
             $.ajax({
                 url: '/admin/deleteClient',
+                type: 'POST',
+                dataType: 'json',
+                data: {id: id},
+                success: function (data) {
+                    if(data.success){
+                        _this.parent().parent().remove();
+                    }
+                }
+            })
+        }
+    });
+    $('.delete-order').click(function(event) {
+        var _this = $(this);
+        var id = $(this).data('id');
+        if(id != ''){
+            $.ajax({
+                url: '/admin/deleteOrder',
                 type: 'POST',
                 dataType: 'json',
                 data: {id: id},

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\Freelancers;
 use App\Clients;
+use App\Orders;
 use App\User;
 use Auth;
 
@@ -31,7 +32,30 @@ class AdminController extends Controller
 
 		return view('admin/clients')->with('clients', $clients);
 	}
+    public function showOrders()
+    {
+		$orders = Orders::all();
 
+		if(count($orders) > 0){
+			foreach ($orders as $key => $value) {
+				$freelancer = Freelancers::find($value->freelancer_id);
+				$client = Clients::find($value->client_id);
+				$value->freelancer = $freelancer;
+				$value->client = $client;
+			}
+		}
+
+		return view('admin/orders')->with('orders', $orders);
+	}
+
+    public function addOrder()
+    {
+		$clients = Clients::all();
+
+		$freelancers = Freelancers::all();
+
+		return view('admin/addOrder')->with('clients', $clients)->with('freelancers', $freelancers);
+    }
     public function addFreelancer()
     {
 		return view('admin/addFreelancer');
@@ -82,8 +106,22 @@ class AdminController extends Controller
 			echo json_encode(array('success' => false));die;
 		}
 	}
-
-
+    public function deleteOrder(Request $request){
+		$id = $request->id;
+		if(isset($id) && !empty($id)){
+			$row = Orders::find($id);
+			$row->delete();
+			if($row){
+				echo json_encode(array('success' => true));die;
+			}
+			else{
+				echo json_encode(array('success' => false));die;
+			}
+		}
+		else{
+			echo json_encode(array('success' => false));die;
+		}
+	}
 
 	public function getClient(Request $request)
 	{
@@ -192,6 +230,35 @@ class AdminController extends Controller
                 'email' => $request->email,
                 'requirements' => $request->requirements
             ]);
+
+            return redirect()->back();
+        }
+	}
+	public function saveOrder(Request $request)
+    {
+
+		$rules = [
+            'name' => 'required',
+            'client_id' => 'required',
+            'freelancer_id' => 'required',
+            'deadline' => 'required'
+
+        ];
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return redirect()->back()->with('errors', $validator->errors())->withInput();
+        }
+        else{
+			$model = new Orders;
+			$model->name = $request->name;
+			$model->client_id = $request->client_id;
+			$model->freelancer_id = $request->freelancer_id;
+			$model->deadline = $request->deadline;
+			$model->status = $request->status;
+			$model->word_count = $request->word_count;
+			$model->comments = $request->comments;
+			$model->save();
 
             return redirect()->back();
         }

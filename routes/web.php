@@ -56,6 +56,14 @@ Route::group(['middleware'=>['web']], function(){
 				Route::post('/deleteClient', 'AdminController@deleteClient');
 				Route::post('/editClient', 'AdminController@editClient');
 				Route::post('/getClient', 'AdminController@getClient');
+
+				// Orders
+				Route::get('/orders', 'AdminController@showOrders');
+				Route::get('/addorder', 'AdminController@addOrder');
+				Route::post('/saveOrder', 'AdminController@saveOrder');
+				Route::post('/deleteOrder', 'AdminController@deleteOrder');
+
+
 			});
 
 		});
