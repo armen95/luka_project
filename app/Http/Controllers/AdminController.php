@@ -34,6 +34,11 @@ class AdminController extends Controller
     {
 		$clients = Clients::all();
 
+		foreach ($clients as $key => $value) {
+			$word_count = Orders::where('client_id', $value->id)->sum('word_count');
+			$value->word_count = $word_count;
+		}
+
 		return view('admin/clients')->with('clients', $clients);
 	}
     public function showOrders()

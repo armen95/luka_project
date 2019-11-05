@@ -20,6 +20,7 @@
 							<th>City</th>
 							<th>Country</th>
 							<th>Vat number</th>
+							<th>Word count</th>
 							<th>Contact person</th>
 							<th>Requirements</th>
 							<th>Actions</th>
@@ -37,6 +38,7 @@
 								<td>{{ $value->city }}</td>
 								<td>{{ $value->country }}</td>
 								<td>{{ $value->vat_number }}</td>
+								<td>{{ $value->word_count }}</td>
 								<td>{{ $value->contact_person }}</td>
 								<td>{{ $value->requirements }}</td>
 								<td>
@@ -57,6 +59,7 @@
 							<th>City</th>
 							<th>Country</th>
 							<th>Vat number</th>
+							<th>Word count</th>
 							<th>Contact person</th>
 							<th>Requirements</th>
 							<th>Actions</th>
