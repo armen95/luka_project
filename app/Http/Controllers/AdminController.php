@@ -300,7 +300,7 @@ class AdminController extends Controller
 
 		$rules = [
             'name' => 'required',
-            'client_id' => 'required',
+            // 'client_id' => 'required',
             'freelancer_id' => 'required',
             'deadline' => 'required'
 
