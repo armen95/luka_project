@@ -22,6 +22,10 @@ class AdminController extends Controller
     public function showFreelancers()
     {
 		$freelancers = Freelancers::all();
+		foreach ($freelancers as $key => $value) {
+			$word_count = Orders::where('freelancer_id', $value->id)->sum('word_count');
+			$value->word_count = $word_count;
+		}
 
 		return view('admin/freelancers')->with('freelancers', $freelancers);
     }
@@ -35,6 +39,8 @@ class AdminController extends Controller
     public function showOrders()
     {
 		$orders = Orders::all();
+		$clients = Clients::all();
+		$freelancers = Freelancers::all();
 
 		if(count($orders) > 0){
 			foreach ($orders as $key => $value) {
@@ -45,7 +51,7 @@ class AdminController extends Controller
 			}
 		}
 
-		return view('admin/orders')->with('orders', $orders);
+		return view('admin/orders')->with('orders', $orders)->with('clients', $clients)->with('freelancers', $freelancers);
 	}
 
     public function addOrder()
@@ -121,6 +127,61 @@ class AdminController extends Controller
 		else{
 			echo json_encode(array('success' => false));die;
 		}
+	}
+
+	public function getOrder(Request $request)
+	{
+		$id = $request->id;
+        if(isset($id) && !empty($id)){
+            $result = Orders::find($id);
+            $date = date('Y-m-d\TH:i:s', strtotime($result->deadline));
+            echo json_encode(array(
+                'success' => true,
+                'result' => $result,
+                'date' => $date
+            ));
+            die;
+        }
+        else{
+            echo json_encode(array(
+                'success' => false,
+                'result'  => ''
+            ));
+            die;
+        }
+	}
+
+	public function editOrder(Request $request)
+	{
+		$order_id = $request->order_id;
+        $name = $request->name;
+        $client_id = $request->client_id;
+        $freelancer_id = $request->freelancer_id;
+        $deadline = $request->deadline;
+        $status = $request->status;
+        $word_count = $request->word_count;
+        $comments = $request->comments;
+        if(isset($order_id) && !empty($order_id)){
+            $order = Orders::find($order_id);
+            $order->name = $name;
+            $order->client_id = $client_id;
+            $order->freelancer_id = $freelancer_id;
+            $order->deadline = $deadline;
+            $order->status = $status;
+            $order->word_count = $word_count;
+            $order->comments = $comments;
+            $order->save();
+            if($order){
+				return redirect()->back();
+            }
+            else{
+				return redirect()->back()->with('not_setup', "Failed to update order");
+            }
+        }
+        else{
+			return redirect()->back()->with('not_setup', "Order ID parameter is missing");
+        }
+
 	}
 
 	public function getClient(Request $request)

@@ -62,6 +62,8 @@ Route::group(['middleware'=>['web']], function(){
 				Route::get('/addorder', 'AdminController@addOrder');
 				Route::post('/saveOrder', 'AdminController@saveOrder');
 				Route::post('/deleteOrder', 'AdminController@deleteOrder');
+				Route::post('/getOrder', 'AdminController@getOrder');
+				Route::post('/editOrder', 'AdminController@editOrder');
 
 
 			});

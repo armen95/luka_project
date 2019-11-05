@@ -18,6 +18,7 @@
 							<th>Target lang</th>
 							<th>Hourly payment</th>
 							<th>Word payment</th>
+							<th>Word count</th>
 							<th>Speciality</th>
 							<th>Availability</th>
 							<th>Tracking system</th>
@@ -35,6 +36,7 @@
 								<td>{{ $value->target_lang }}</td>
 								<td>{{ $value->hourly_payment }}</td>
 								<td>{{ $value->word_payment }}</td>
+								<td>{{ $value->word_count }}</td>
 								<td>{{ $value->speciality }}</td>
 								<td>{{ $value->availability }}</td>
 								<td>{{ $value->tracking_system }}</td>
@@ -55,6 +57,7 @@
 							<th>Target lang</th>
 							<th>Hourly payment</th>
 							<th>Word payment</th>
+							<th>Word count</th>
 							<th>Speciality</th>
 							<th>Availability</th>
 							<th>Tracking system</th>

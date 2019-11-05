@@ -52,6 +52,40 @@ $(function() {
         }
     });
 
+
+    $('.edit-order').click(function(event){
+        var _this = $(this);
+        var id = $(this).data('id');
+        var _modal = $('#editOrderModal');
+        var _form = $('#editOrderForm');
+        if(id != ''){
+            $.ajax({
+                url: '/admin/getOrder',
+                type: 'POST',
+                dataType: 'json',
+                data: {id: id},
+                success: function (data) {
+                    if(data.success){
+                        var result = data.result;
+
+                        $("#editOrderForm #order_id").val(result.id);
+                        $("#editOrderForm #name").val(result.name);
+                        $("#editOrderForm #deadline").val(data.date);
+                        $("#editOrderForm #status").val(result.status);
+                        $("#editOrderForm #word_count").val(result.word_count);
+                        $("#editOrderForm #comments").val(result.comments);
+                        $('#editOrderForm #freelancer_id option[value="'+result.freelancer_id +'"]').prop('selected', 'selected');
+                        $('#editOrderForm #client_id option[value="'+result.client_id +'"]').prop('selected', 'selected');
+
+                        _modal.modal('show');
+                    }
+                }
+            })
+        }
+
+    });
+
+
     $('.edit-client').click(function(event){
         var _this = $(this);
         var id = $(this).data('id');

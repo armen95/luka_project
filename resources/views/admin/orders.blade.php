@@ -58,4 +58,70 @@
 		</div>
 	</div>
 
+
+	<div id="editOrderModal" class="modal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Edit Order</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body">
+					<form action="/admin/editOrder" method="post" id = "editOrderForm">
+						{{ csrf_field() }}
+						<input type="hidden" name="order_id" id = "order_id" value="">
+						<div class="form-group">
+							<label for="name">Name:</label>
+							<input type="text" class="form-control" value="" name = "name" id="name">
+						</div>
+						<div class="form-group">
+							<label for="">Client</label>
+							@if(!empty($clients))
+								<select name = "client_id" id = "client_id" class="form-control">
+									<option value="">Choose Client</option>
+									@foreach($clients as $client)
+										<option value="{{ $client->id}}">{{ $client->name }}</option>
+									@endforeach
+								</select>
+							@endif
+						</div>
+						<div class="form-group">
+							<label for="">Freelancer</label>
+							@if(!empty($freelancers))
+								<select name = "freelancer_id" id = "freelancer_id" class="form-control">
+									<option value="">Choose Freelancer</option>
+									@foreach($freelancers as $freelancer)
+										<option value="{{ $freelancer->id}}">{{ $freelancer->name }}</option>
+									@endforeach
+								</select>
+							@endif
+						</div>
+						<div class="form-group">
+							<label for="deadline">Deadline:</label>
+							<input type="datetime-local" class="form-control" name = "deadline" id="deadline">
+						</div>
+						<div class="form-group">
+							<label for="status">Status:</label>
+							<input type="text" class="form-control" name = "status" id="status">
+						</div>
+						<div class="form-group">
+							<label for="word_count">Word Count:</label>
+							<input type="number" class="form-control" name = "word_count" id="word_count">
+						</div>
+						<div class="form-group">
+							<label for="comments">Comments:</label>
+							<textarea class="form-control" name = "comments" id="comments"></textarea>
+						</div>
+						<div class="form-group text-right">
+							<button type="submit" class="btn btn-primary">Save</button>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 @stop
