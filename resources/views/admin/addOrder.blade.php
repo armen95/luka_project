@@ -46,6 +46,19 @@
 						<input type="text" class="form-control" value="{{ old('status') }}" name = "status" id="status">
 					</div>
 					<div class="form-group">
+						<p class="text-danger">{{$errors->first('type')}}</p>
+						<label for="type">Type:</label>
+						<select name = "type" id = "type" class="form-control">
+							<option value="">Choose type</option>
+							<option value="translation">Translation</option>
+							<option value="copywriting">Copywriting</option>
+							<option value="proofreading">Proofreading</option>
+							<option value="editing">Editing</option>
+							<option value="other">Other</option>
+						</select>
+						<input type="text" class="form-control d-none" value="" name = "other_type" id="other_type">
+					</div>
+					<div class="form-group">
 						<p class="text-danger">{{$errors->first('word_count')}}</p>
 						<label for="word_count">Word Count:</label>
 						<input type="number" class="form-control" value="{{ old('word_count') }}" name = "word_count" id="word_count">

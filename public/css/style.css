@@ -32,7 +32,9 @@ body {
 #editFreelancerModal .modal-header .close{
     margin-left: 0;
 }
-
+#other_type{
+    margin-top: 10px;
+}
 
 @media (min-width: 768px) {
     #sidebar-wrapper {

@@ -1,8 +1,20 @@
 $(function() {
+
+    $('#type').change(function(){
+        var val = $(this).val();
+        if(val == 'other'){
+            $('#other_type').removeClass('d-none');
+        }
+        else{
+            $('#other_type').addClass('d-none');
+        }
+    });
+
     $('.delete-freelancer').click(function(event) {
         var _this = $(this);
         var id = $(this).data('id');
-        if(id != ''){
+        var r = confirm("Are you sure you want to delete?");
+        if(id != '' && r == true){
             $.ajax({
                 url: '/admin/deleteFreelancer',
                 type: 'POST',
@@ -20,7 +32,8 @@ $(function() {
     $('.delete-client').click(function(event) {
         var _this = $(this);
         var id = $(this).data('id');
-        if(id != ''){
+        var r = confirm("Are you sure you want to delete?");
+        if(id != '' && r == true){
             $.ajax({
                 url: '/admin/deleteClient',
                 type: 'POST',
@@ -37,7 +50,9 @@ $(function() {
     $('.delete-order').click(function(event) {
         var _this = $(this);
         var id = $(this).data('id');
-        if(id != ''){
+        var r = confirm("Are you sure you want to delete?");
+
+        if(id != '' && r == true){
             $.ajax({
                 url: '/admin/deleteOrder',
                 type: 'POST',
@@ -76,6 +91,15 @@ $(function() {
                         $("#editOrderForm #comments").val(result.comments);
                         $('#editOrderForm #freelancer_id option[value="'+result.freelancer_id +'"]').prop('selected', 'selected');
                         $('#editOrderForm #client_id option[value="'+result.client_id +'"]').prop('selected', 'selected');
+                        $('#editOrderForm #type option[value="'+result.type +'"]').prop('selected', 'selected');
+                        if(result.type == 'other'){
+                            $('#other_type').removeClass('d-none');
+                            $('#other_type').val(result.type);
+                        }
+                        else{
+                            $('#other_type').addClass('d-none');
+                            $('#other_type').val('');
+                        }
 
                         _modal.modal('show');
                     }

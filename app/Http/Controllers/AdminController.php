@@ -164,6 +164,8 @@ class AdminController extends Controller
         $freelancer_id = $request->freelancer_id;
         $deadline = $request->deadline;
         $status = $request->status;
+        $type = $request->type;
+        $other_type = $request->other_type;
         $word_count = $request->word_count;
         $comments = $request->comments;
         if(isset($order_id) && !empty($order_id)){
@@ -173,6 +175,7 @@ class AdminController extends Controller
             $order->freelancer_id = $freelancer_id;
             $order->deadline = $deadline;
             $order->status = $status;
+            $order->type = (!empty($other_type)) ? $other_type : $type;
             $order->word_count = $word_count;
             $order->comments = $comments;
             $order->save();
@@ -322,6 +325,7 @@ class AdminController extends Controller
 			$model->freelancer_id = $request->freelancer_id;
 			$model->deadline = $request->deadline;
 			$model->status = $request->status;
+			$model->type =  (!empty($request->other_type)) ? $request->other_type : $request->type;
 			$model->word_count = $request->word_count;
 			$model->comments = $request->comments;
 			$model->save();

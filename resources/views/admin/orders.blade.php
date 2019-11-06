@@ -16,6 +16,7 @@
 							<th>Freelancer</th>
 							<th>Word Count</th>
 							<th>Status</th>
+							<th>Type</th>
 							<th>Deadline</th>
 							<th>Comments</th>
 							<th>Actions</th>
@@ -30,6 +31,7 @@
 								<td>{{ $value->freelancer->name }}</td>
 								<td>{{ $value->word_count }}</td>
 								<td>{{ $value->status }}</td>
+								<td>{{ $value->type }}</td>
 								<td>{{ $value->deadline }}</td>
 								<td>{{ $value->comments }}</td>
 								<td>
@@ -47,6 +49,7 @@
 							<th>Freelancer</th>
 							<th>Word Count</th>
 							<th>Status</th>
+							<th>Type</th>
 							<th>Deadline</th>
 							<th>Comments</th>
 							<th>Actions</th>
@@ -103,6 +106,18 @@
 						<div class="form-group">
 							<label for="status">Status:</label>
 							<input type="text" class="form-control" name = "status" id="status">
+						</div>
+						<div class="form-group">
+							<label for="type">Type:</label>
+							<select name = "type" id = "type" class="form-control">
+								<option value="">Choose type</option>
+								<option value="translation">Translation</option>
+								<option value="copywriting">Copywriting</option>
+								<option value="proofreading">Proofreading</option>
+								<option value="proofreading">Editing</option>
+								<option value="other">Other</option>
+							</select>
+							<input type="text" class="form-control d-none" name = "other_type" id="other_type">
 						</div>
 						<div class="form-group">
 							<label for="word_count">Word Count:</label>
