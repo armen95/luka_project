@@ -14,17 +14,17 @@ class CreateContractorsTable extends Migration
     public function up()
     {
         Schema::create('contractors', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id')->unsigned();
             $table->text('name');
             $table->string('email');
-            $table->text('contact');
+            $table->text('contact')->nullable();
             $table->text('source_lang');
             $table->text('target_lang');
-            $table->integer('hourly_payment');
-            $table->integer('word_payment');
-            $table->text('speciality');
-            $table->text('availability');
-            $table->string('tracking_system');
+            $table->integer('hourly_payment')->nullable();
+            $table->integer('word_payment')->nullable();
+            $table->text('speciality')->nullable();
+            $table->text('availability')->nullable();
+            $table->string('tracking_system')->nullable();
             $table->timestamps();
         });
     }

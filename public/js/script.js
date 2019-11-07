@@ -10,6 +10,16 @@ $(function() {
         }
     });
 
+    $('#addFreelancer').click(function(event){
+        event.preventDefault();
+        var obj = $('.freelancer-item').html();
+        var str = '<div class = "freelancer-obj row">';
+        str += obj;
+        str += '</div>';
+        // console.log(str);
+        $('#freelancers-wrapper .group-wrapper').prepend(str);
+    })
+
     $('.delete-freelancer').click(function(event) {
         var _this = $(this);
         var id = $(this).data('id');

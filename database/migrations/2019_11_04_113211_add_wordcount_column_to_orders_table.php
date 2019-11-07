@@ -14,7 +14,7 @@ class AddWordcountColumnToOrdersTable extends Migration
     public function up()
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->string('word_count')->after('comments');
+            $table->string('word_count')->after('comments')->nullable();
         });
     }
 

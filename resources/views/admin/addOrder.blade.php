@@ -23,17 +23,22 @@
 							</select>
 						@endif
 					</div>
-					<div class="form-group">
-						<p class="text-danger">{{$errors->first('freelancer_id')}}</p>
-						<label for="">Freelancer</label>
-						@if(!empty($freelancers))
-							<select name = "freelancer_id" id = "freelancer_id" class="form-control">
-								<option value="">Choose Freelancer</option>
-								@foreach($freelancers as $freelancer)
-									<option value="{{ $freelancer->id}}">{{ $freelancer->name }}</option>
-								@endforeach
-							</select>
-						@endif
+					<div class="form-group" id = "freelancers-wrapper">
+						<label for="">Freelancers</label>
+						<div class="group-wrapper">
+							<button class="btn btn-primary" id="addFreelancer">Add Freelancer</button>
+							<div class="row d-none freelancer-item">
+								@if(!empty($freelancers))
+									<select name = "freelancer_id[]" class="form-control col-md-4">
+										<option value="">Choose Freelancer</option>
+										@foreach($freelancers as $freelancer)
+											<option value="{{ $freelancer->id}}">{{ $freelancer->name }}</option>
+										@endforeach
+									</select>
+								@endif
+								<input type="text" name="word_count[]" class="form-control col-md-4 offset-md-1" placeholder="Word Count">
+							</div>
+						</div>
 					</div>
 					<div class="form-group">
 						<p class="text-danger">{{$errors->first('deadline')}}</p>
@@ -59,9 +64,9 @@
 						<input type="text" class="form-control d-none" value="" name = "other_type" id="other_type">
 					</div>
 					<div class="form-group">
-						<p class="text-danger">{{$errors->first('word_count')}}</p>
+						<p class="text-danger">{{$errors->first('count')}}</p>
 						<label for="word_count">Word Count:</label>
-						<input type="number" class="form-control" value="{{ old('word_count') }}" name = "word_count" id="word_count">
+						<input type="number" class="form-control" value="{{ old('count') }}" name = "count" id="word_count">
 					</div>
 					<div class="form-group">
 						<p class="text-danger">{{$errors->first('comments')}}</p>

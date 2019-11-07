@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use App\OrderFreelancers;
 use App\Freelancers;
 use App\Clients;
 use App\Orders;
@@ -23,7 +24,7 @@ class AdminController extends Controller
     {
 		$freelancers = Freelancers::all();
 		foreach ($freelancers as $key => $value) {
-			$word_count = Orders::where('freelancer_id', $value->id)->sum('word_count');
+			$word_count = OrderFreelancers::where('freelancer_id', $value->id)->sum('word_count');
 			$value->word_count = $word_count;
 		}
 
@@ -322,13 +323,27 @@ class AdminController extends Controller
 			$model = new Orders;
 			$model->name = $request->name;
 			$model->client_id = $request->client_id;
-			$model->freelancer_id = $request->freelancer_id;
+			// $model->freelancer_id = $request->freelancer_id;
 			$model->deadline = $request->deadline;
 			$model->status = $request->status;
 			$model->type =  (!empty($request->other_type)) ? $request->other_type : $request->type;
-			$model->word_count = $request->word_count;
+			$model->word_count = $request->count;
 			$model->comments = $request->comments;
 			$model->save();
+
+			$word_count = $request->word_count;
+			if(isset($request->freelancer_id) && count($request->freelancer_id) > 0 ){
+				foreach ($request->freelancer_id as $key => $value) {
+					if($value !== null){
+						var_dump($model->id,$value, $word_count[$key]);
+						$row = new OrderFreelancers;
+						$row->order_id = $model->id;
+						$row->freelancer_id = $value;
+						$row->word_count = $word_count[$key];
+						$row->save();
+					}
+				}
+			}
 
             return redirect()->back();
         }

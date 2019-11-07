@@ -28,7 +28,7 @@
 								<td>{{ $value->id }}</td>
 								<td>{{ $value->name }}</td>
 								<td>{{ $value->client->name }}</td>
-								<td>{{ $value->freelancer->name }}</td>
+								<td></td>
 								<td>{{ $value->word_count }}</td>
 								<td>{{ $value->status }}</td>
 								<td>{{ $value->type }}</td>

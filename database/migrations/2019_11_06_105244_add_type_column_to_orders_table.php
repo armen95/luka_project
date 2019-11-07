@@ -14,7 +14,7 @@ class AddTypeColumnToOrdersTable extends Migration
     public function up()
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->text('type');
+            $table->text('type')->nullable();
         });
     }
 
