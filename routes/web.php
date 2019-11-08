@@ -60,6 +60,7 @@ Route::group(['middleware'=>['web']], function(){
 				// Orders
 				Route::get('/orders', 'AdminController@showOrders');
 				Route::get('/addorder', 'AdminController@addOrder');
+				Route::get('/viewOrder/{order_id}', 'AdminController@viewOrder');
 				Route::post('/saveOrder', 'AdminController@saveOrder');
 				Route::post('/deleteOrder', 'AdminController@deleteOrder');
 				Route::post('/getOrder', 'AdminController@getOrder');

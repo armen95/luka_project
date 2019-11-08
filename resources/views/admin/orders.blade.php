@@ -13,7 +13,6 @@
 							<th>#</th>
 							<th>Name</th>
 							<th>Client</th>
-							<th>Freelancer</th>
 							<th>Word Count</th>
 							<th>Status</th>
 							<th>Type</th>
@@ -28,13 +27,13 @@
 								<td>{{ $value->id }}</td>
 								<td>{{ $value->name }}</td>
 								<td>{{ $value->client->name }}</td>
-								<td></td>
 								<td>{{ $value->word_count }}</td>
 								<td>{{ $value->status }}</td>
 								<td>{{ $value->type }}</td>
 								<td>{{ $value->deadline }}</td>
 								<td>{{ $value->comments }}</td>
 								<td>
+									<a href="/admin/viewOrder/{{ $value->id }}" class="btn btn-primary" data-id = "{{ $value->id }}"><i class="fa fa-search"></i></a>
 									<a href="#" class="btn btn-primary edit-order" data-id = "{{ $value->id }}"><i class="fa fa-pencil"></i></a>
 									<a href="#" class="btn btn-danger delete-order" data-id = "{{ $value->id }}"><i class="fa fa-trash"></i></a>
 								</td>
@@ -46,7 +45,6 @@
 							<th>#</th>
 							<th>Name</th>
 							<th>Client</th>
-							<th>Freelancer</th>
 							<th>Word Count</th>
 							<th>Status</th>
 							<th>Type</th>

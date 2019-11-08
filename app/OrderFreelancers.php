@@ -13,4 +13,9 @@ class OrderFreelancers extends Model
     ];
 
     public $timestamps = false;
+
+    public function freelancers()
+    {
+    	return $this->belongsTo('App\Freelancers', 'freelancer_id');
+	}
 }
