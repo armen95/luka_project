@@ -18,4 +18,9 @@ class OrderFreelancers extends Model
     {
     	return $this->belongsTo('App\Freelancers', 'freelancer_id');
 	}
+
+	public function orders()
+    {
+        return $this->belongsTo('App\Orders', 'order_id');
+	}
 }

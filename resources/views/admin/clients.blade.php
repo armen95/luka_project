@@ -42,6 +42,7 @@
 								<td>{{ $value->contact_person }}</td>
 								<td>{{ $value->requirements }}</td>
 								<td>
+									<a href="/admin/viewClient/{{ $value->id }}" class="btn btn-primary" data-id = "{{ $value->id }}"><i class="fa fa-search"></i></a>
 									<a href="#" class="btn btn-primary edit-client" data-id = "{{ $value->id }}"><i class="fa fa-pencil"></i></a>
 									<a href="#" class="btn btn-danger delete-client" data-id = "{{ $value->id }}"><i class="fa fa-trash"></i></a>
 								</td>

@@ -44,6 +44,7 @@ Route::group(['middleware'=>['web']], function(){
 				// Freelancers
 				Route::get('/freelancers', 'AdminController@showFreelancers');
 				Route::get('/addfreelancer', 'AdminController@addFreelancer');
+				Route::get('/viewFreelancer/{freelancer_id}', 'AdminController@viewFreelancer');
 				Route::post('/getFreelancer', 'AdminController@getFreelancer');
 				Route::post('/saveFreelancer', 'AdminController@saveFreelancer');
 				Route::post('/editFreelancer', 'AdminController@editFreelancer');
@@ -52,6 +53,7 @@ Route::group(['middleware'=>['web']], function(){
 				// Clients
 				Route::get('/clients', 'AdminController@showClients');
 				Route::get('/addclient', 'AdminController@addClient');
+				Route::get('/viewClient/{client_id}', 'AdminController@viewClient');
 				Route::post('/saveClient', 'AdminController@saveClient');
 				Route::post('/deleteClient', 'AdminController@deleteClient');
 				Route::post('/editClient', 'AdminController@editClient');

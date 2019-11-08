@@ -62,11 +62,25 @@ class AdminController extends Controller
 
 	public function viewOrder($order_id)
 	{
-		// dd($order_id);
 		$order = Orders::find($order_id);
+		$order->client = Clients::find($order->client_id);
 		$order_freelancers = OrderFreelancers::where('order_id', $order_id)->with('freelancers')->get();
 
 		return view('admin/viewOrder')->with('order', $order)->with('order_freelancers', $order_freelancers);
+	}
+	public function viewFreelancer($freelancer_id)
+	{
+		$freelancer = Freelancers::find($freelancer_id);
+		$freelancer_orders = OrderFreelancers::where('freelancer_id', $freelancer_id)->with('orders')->get();
+
+		return view('admin/viewFreelancer')->with('freelancer', $freelancer)->with('freelancer_orders', $freelancer_orders);
+	}
+	public function viewClient($client_id)
+	{
+		$client = Clients::find($client_id);
+		$client_orders = Orders::where('client_id', $client_id)->get();
+
+		return view('admin/viewClient')->with('client', $client)->with('client_orders', $client_orders);
 	}
 
     public function addOrder()
