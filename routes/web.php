@@ -24,14 +24,14 @@ Route::group(['middleware'=>['web']], function(){
 	Route::group(['middleware'=>['auth']], function(){
 
 		Route::prefix('user')->group(function () {
-		   
+
 			Route::group(['middleware' => 'user'], function(){
 
 				Route::get('/profile', 'UsersController@index');
 
 			});
-			
-		});		
+
+		});
 
 		Route::prefix('admin')->group(function () {
 
@@ -65,6 +65,7 @@ Route::group(['middleware'=>['web']], function(){
 				Route::get('/viewOrder/{order_id}', 'AdminController@viewOrder');
 				Route::post('/saveOrder', 'AdminController@saveOrder');
 				Route::post('/deleteOrder', 'AdminController@deleteOrder');
+				Route::post('/deleteOrderFreelancers', 'AdminController@deleteOrderFreelancers');
 				Route::post('/getOrder', 'AdminController@getOrder');
 				Route::post('/editOrder', 'AdminController@editOrder');
 

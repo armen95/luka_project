@@ -65,7 +65,7 @@
 						<tbody>
 							@foreach($freelancer_orders as $order)
 								<tr>
-									<td><a href="/admin/viewOrder/{{ $order->order_id }}">{{ $order->order_id }}</a></td>									
+									<td><a href="/admin/viewOrder/{{ $order->order_id }}">{{ $order->order_id }}</a></td>
 									<td>{{ $order->orders->name }}</td>
 									<td>{{ $order->word_count }}</td>
 									<td>{{ $order->orders->type }}</td>
@@ -74,7 +74,9 @@
 							@endforeach
 						</tbody>
 					</table>
-
+                    <div class="col mt-3 ">
+                        {{ $freelancer_orders->links() }}
+                    </div>
 				@endif
 			</div>
 

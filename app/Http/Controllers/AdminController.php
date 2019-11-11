@@ -11,10 +11,11 @@ use App\Clients;
 use App\Orders;
 use App\User;
 use Auth;
+use Illuminate\Validation\Rule;
 
 class AdminController extends Controller
 {
-	/*********** Admin Page View ************/ 
+	/*********** Admin Page View ************/
     public function index() {
     	return view('admin/admin');
     }
@@ -64,21 +65,21 @@ class AdminController extends Controller
 	{
 		$order = Orders::find($order_id);
 		$order->client = Clients::find($order->client_id);
-		$order_freelancers = OrderFreelancers::where('order_id', $order_id)->with('freelancers')->get();
+		$order_freelancers = OrderFreelancers::where('order_id', $order_id)->with('freelancers')->paginate(10);
 
 		return view('admin/viewOrder')->with('order', $order)->with('order_freelancers', $order_freelancers);
 	}
 	public function viewFreelancer($freelancer_id)
 	{
-		$freelancer = Freelancers::find($freelancer_id);
-		$freelancer_orders = OrderFreelancers::where('freelancer_id', $freelancer_id)->with('orders')->get();
+        $freelancer = Freelancers::find($freelancer_id);
+        $freelancer_orders = OrderFreelancers::where('freelancer_id', $freelancer_id)->with('orders')->paginate(10);
 
-		return view('admin/viewFreelancer')->with('freelancer', $freelancer)->with('freelancer_orders', $freelancer_orders);
+        return view('admin/viewFreelancer')->with('freelancer', $freelancer)->with('freelancer_orders', $freelancer_orders);
 	}
 	public function viewClient($client_id)
 	{
 		$client = Clients::find($client_id);
-		$client_orders = Orders::where('client_id', $client_id)->get();
+		$client_orders = Orders::where('client_id', $client_id)->paginate(10);
 
 		return view('admin/viewClient')->with('client', $client)->with('client_orders', $client_orders);
 	}
@@ -158,15 +159,36 @@ class AdminController extends Controller
 		}
 	}
 
+    public function deleteOrderFreelancers(Request $request){
+		$id = $request->id;
+		if(isset($id) && !empty($id)){
+			$row = OrderFreelancers::find($id);
+			$row->delete();
+			if($row){
+				echo json_encode(array('success' => true));die;
+			}
+			else{
+				echo json_encode(array('success' => false));die;
+			}
+		}
+		else{
+			echo json_encode(array('success' => false));die;
+		}
+	}
+
 	public function getOrder(Request $request)
 	{
 		$id = $request->id;
         if(isset($id) && !empty($id)){
             $result = Orders::find($id);
+            $order_freelancers = OrderFreelancers::where('order_id', $id)->with('freelancers')->get();
+            $freelancers = Freelancers::all();
             $date = date('Y-m-d\TH:i:s', strtotime($result->deadline));
             echo json_encode(array(
                 'success' => true,
                 'result' => $result,
+                'order_freelancers' => $order_freelancers,
+                'freelancers' => $freelancers,
                 'date' => $date
             ));
             die;
@@ -185,24 +207,48 @@ class AdminController extends Controller
 		$order_id = $request->order_id;
         $name = $request->name;
         $client_id = $request->client_id;
-        $freelancer_id = $request->freelancer_id;
+        $word_count = $request->word_count;
         $deadline = $request->deadline;
         $status = $request->status;
         $type = $request->type;
         $other_type = $request->other_type;
-        $word_count = $request->word_count;
         $comments = $request->comments;
+
+
         if(isset($order_id) && !empty($order_id)){
             $order = Orders::find($order_id);
             $order->name = $name;
             $order->client_id = $client_id;
-            $order->freelancer_id = $freelancer_id;
             $order->deadline = $deadline;
             $order->status = $status;
-            $order->type = (!empty($other_type)) ? $other_type : $type;
-            $order->word_count = $word_count;
+            $order->word_count = $comments;
             $order->comments = $comments;
+            $order->type = (!empty($other_type)) ? $other_type : $type;
             $order->save();
+
+
+            /**** Bind new freelancer *****/
+            if(is_array($request->freelancer_id)){
+                foreach ($request->freelancer_id as $key => $item) {
+                    if(!empty($request->freelancer_id[$key])){
+                        $freelancer = OrderFreelancers::where('order_id', $order_id)->where('freelancer_id',$request->freelancer_id[$key])->first();
+                        if(empty($freelancer)){
+                            OrderFreelancers::create(array('order_id' => $order_id,'freelancer_id'=>$request->freelancer_id[$key],'word_count'=>$request->word_counts[$key]));
+                        }
+                    }
+                }
+            }
+
+            /***** Update freelancer *****/
+            if(is_array($request->order_freelancer_id)){
+                foreach ($request->order_freelancer_id as $key => $item) {
+                    $order_freelancers = OrderFreelancers::find($item);
+                    if(!empty($order_freelancers)){
+                        $order_freelancers->update(array('word_count' => $request->freelancers_word_count[$key]));
+                    }
+                }
+            }
+
             if($order){
 				return redirect()->back();
             }
@@ -332,11 +378,12 @@ class AdminController extends Controller
 
 		$rules = [
             'name' => 'required',
-            // 'client_id' => 'required',
+            'client_id' => 'required',
             'freelancer_id' => 'required',
-            'deadline' => 'required'
-
+            'deadline' => 'required',
         ];
+
+
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()) {
@@ -358,7 +405,6 @@ class AdminController extends Controller
 			if(isset($request->freelancer_id) && count($request->freelancer_id) > 0 ){
 				foreach ($request->freelancer_id as $key => $value) {
 					if($value !== null){
-						var_dump($model->id,$value, $word_count[$key]);
 						$row = new OrderFreelancers;
 						$row->order_id = $model->id;
 						$row->freelancer_id = $value;
@@ -377,6 +423,8 @@ class AdminController extends Controller
 
 		$rules = [
             'name' => 'required',
+            'source_lang' => 'required',
+            'target_lang' => 'required',
             'email' => 'email|unique:contractors,email'
 
         ];
@@ -426,6 +474,19 @@ class AdminController extends Controller
 
 	public function editFreelancer(Request $request)
 	{
+
+        $rules = [
+            'name' => 'required',
+            'source_lang' => 'required',
+            'target_lang' => 'required',
+            'email' => 'email|unique:contractors,email'
+
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return redirect()->back()->with('errors', $validator->errors())->withInput();
+        }
 		$freelancer_id = $request->freelancer_id;
         $name = $request->name;
         $email = $request->email;

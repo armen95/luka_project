@@ -81,6 +81,7 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
+                    <div class="col error-msg"></div>
 					<form action="/admin/editFreelancer" method="post" id = "editFreelancerForm">
 						{{ csrf_field() }}
 						<input type="hidden" name="freelancer_id" id = "freelancer_id" value="">

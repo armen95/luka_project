@@ -82,16 +82,17 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
+                    <div class="col error-msg"></div>
 					<form action="/admin/editClient" method="post" id = "editClientForm">
 						{{ csrf_field() }}
 						<input type="hidden" name="client_id" id = "client_id" value="">
 						<div class="form-group">
 							<label for="name">Name:</label>
-							<input type="text" class="form-control" value="" name = "name" id="name">
+							<input type="text" class="form-control" value="" name = "name" id="name" required>
 						</div>
 						<div class="form-group">
 							<label for="email">Email:</label>
-							<input type="text" class="form-control" value="" name = "email" id="email">
+							<input type="email" class="form-control" value="" name = "email" id="email" required>
 						</div>
 						<div class="form-group">
 							<label for="legal_name">Legal name:</label>

@@ -68,6 +68,7 @@
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<div class="modal-body">
+                    <div class="col error-msg"></div>
 					<form action="/admin/editOrder" method="post" id = "editOrderForm">
 						{{ csrf_field() }}
 						<input type="hidden" name="order_id" id = "order_id" value="">
@@ -86,17 +87,32 @@
 								</select>
 							@endif
 						</div>
-						<div class="form-group">
-							<label for="">Freelancer</label>
-							@if(!empty($freelancers))
-								<select name = "freelancer_id" id = "freelancer_id" class="form-control">
-									<option value="">Choose Freelancer</option>
-									@foreach($freelancers as $freelancer)
-										<option value="{{ $freelancer->id}}">{{ $freelancer->name }}</option>
-									@endforeach
-								</select>
-							@endif
-						</div>
+
+
+                        <div class="form-group" id = "freelancers-wrapper">
+                            <label for="">Freelancers</label>
+                            <div class="group-wrapper">
+                                <div id="order_freelancers">
+
+                                </div>
+
+                                <button class="btn btn-primary" id="addFreelancer">Add Freelancer</button>
+                                <div class="row d-none freelancer-item">
+                                    @if(!empty($freelancers))
+                                        <select name = "freelancer_id[]" class="form-control col-md-4 freelancer_id">
+                                            <option value="">Choose Freelancer</option>
+                                            @foreach($freelancers as $freelancer)
+                                                <option value="{{ $freelancer->id}}">{{ $freelancer->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    @endif
+                                    <input type="text" name="word_counts[]" class="form-control col-md-4 offset-md-1" placeholder="Word Count">
+                                </div>
+
+
+                            </div>
+                        </div>
+
 						<div class="form-group">
 							<label for="deadline">Deadline:</label>
 							<input type="datetime-local" class="form-control" name = "deadline" id="deadline">

@@ -16,7 +16,6 @@ $(function() {
         var str = '<div class = "freelancer-obj row">';
         str += obj;
         str += '</div>';
-        // console.log(str);
         $('#freelancers-wrapper .group-wrapper').prepend(str);
     })
 
@@ -77,12 +76,55 @@ $(function() {
         }
     });
 
+    $(document).on('click', '.delete_order_freelancers', function(event) {
+        var _this = $(this);
+        var id = $(this).data('id');
+        var r = confirm("Are you sure you want to delete?");
+        if(id != '' && r == true){
+            $.ajax({
+                url: '/admin/deleteOrderFreelancers',
+                type: 'POST',
+                dataType: 'json',
+                data: {id: id},
+                success: function (data) {
+                    if(data.success){
+                        _this.parent().parent().remove();
+                    }
+                }
+            })
+        }
+    });
+
+    $('#editOrderForm').submit(function(event){
+        var name =  $("#editOrderForm #name").val();
+        var client_id = $("#editOrderForm #client_id").val();
+        var deadline = $("#editOrderForm #deadline").val();
+        var error_msg = '';
+        if(name == '' || name == ' '){
+            error_msg = `<div class="alert alert-danger" role="alert">The "Name:" field is required.</div>`
+        }
+        if(client_id == '' || client_id == ' '){
+            error_msg =`<div class="alert alert-danger" role="alert">The "Client:" field is required.</div>`
+        }
+        if(deadline == '' || deadline == ' '){
+            error_msg =`<div class="alert alert-danger" role="alert">The "Deadline:" field is required.</div>`
+        }
+
+        if(error_msg == '' || error_msg == ' ' ){
+            $('.error-msg').html()
+            return true;
+        }else {
+            $('.error-msg').html(error_msg)
+            return false
+        }
+    })
 
     $('.edit-order').click(function(event){
         var _this = $(this);
         var id = $(this).data('id');
         var _modal = $('#editOrderModal');
         var _form = $('#editOrderForm');
+        $('#order_freelancers').html('');
         if(id != ''){
             $.ajax({
                 url: '/admin/getOrder',
@@ -92,6 +134,7 @@ $(function() {
                 success: function (data) {
                     if(data.success){
                         var result = data.result;
+                        var order_freelancers = data.order_freelancers;
 
                         $("#editOrderForm #order_id").val(result.id);
                         $("#editOrderForm #name").val(result.name);
@@ -99,7 +142,23 @@ $(function() {
                         $("#editOrderForm #status").val(result.status);
                         $("#editOrderForm #word_count").val(result.word_count);
                         $("#editOrderForm #comments").val(result.comments);
-                        $('#editOrderForm #freelancer_id option[value="'+result.freelancer_id +'"]').prop('selected', 'selected');
+                        for (let i = 0; i < order_freelancers.length; i++) {
+                            $('#editOrderForm #order_freelancers').append(`
+                                        <div class="freelancer-obj row">
+                                                <div class="col">
+                                                    <b>${order_freelancers[i].freelancers.name}</b>
+                                                    <input type="hidden" value="${order_freelancers[i].id}" name="order_freelancer_id[]">
+                                                </div>
+                                                <div class="col ">
+                                                    <input type="text" name="freelancers_word_count[]" class="form-control col-md-8 m-auto offset-md-1" value="${order_freelancers[i].word_count}">
+                                                </div>
+                                                <div class="col text-center">
+                                                <a href="#" class="btn btn-danger delete_order_freelancers" data-id = "${order_freelancers[i].id}"><i class="fa fa-minus-square" aria-hidden="true"></i></a>
+                                                   
+                                                </div>
+                                        </div>`);
+                        }
+
                         $('#editOrderForm #client_id option[value="'+result.client_id +'"]').prop('selected', 'selected');
                         $('#editOrderForm #type option[value="'+result.type +'"]').prop('selected', 'selected');
                         if(result.type == 'other'){
@@ -109,6 +168,7 @@ $(function() {
                         else{
                             $('#other_type').addClass('d-none');
                             $('#other_type').val('');
+
                         }
 
                         _modal.modal('show');
@@ -119,6 +179,31 @@ $(function() {
 
     });
 
+
+
+    $('#editClientForm').submit(function(event){
+        var name =  $("#editClientForm #name").val();
+        var email = $("#editClientForm #email").val();
+        var post_index =  $("#editClientForm #post_index").val();
+        var error_msg = '';
+        if(name == '' || name == ' '){
+            error_msg = `<div class="alert alert-danger" role="alert">The "Name:" field is required.</div>`
+        }
+        if(email == '' || email == ' '){
+            error_msg =`<div class="alert alert-danger" role="alert">The "Email:" field is required.</div>`
+        }
+        if(post_index == '' || post_index == ' '){
+            error_msg =`<div class="alert alert-danger" role="alert">The "Post index:" field is required.</div>`
+        }
+
+        if(error_msg == '' || error_msg == ' ' ){
+            $('.error-msg').html()
+            return true;
+        }else {
+            $('.error-msg').html(error_msg)
+            return false
+        }
+    })
 
     $('.edit-client').click(function(event){
         var _this = $(this);
@@ -153,6 +238,39 @@ $(function() {
 
     });
 
+
+
+
+    $('#editFreelancerForm').submit(function(event){
+        var name =  $("#editFreelancerForm #name").val();
+        var email = $("#editFreelancerForm #email").val();
+        var source_lang =  $("#editFreelancerForm #source_lang").val();
+        var target_lang = $("#editFreelancerForm #target_lang").val();
+        var error_msg = '';
+            if(name == '' || name == ' '){
+                error_msg = `<div class="alert alert-danger" role="alert">The "Name:" field is required.</div>`
+            }
+            if(email == '' || email == ' '){
+                error_msg =`<div class="alert alert-danger" role="alert">The "Email:" field is required.</div>`
+            }
+            if(source_lang == '' || source_lang == ' '){
+                error_msg =`<div class="alert alert-danger" role="alert">The "Source language:" field is required.</div>`
+            }
+            if(target_lang == '' || target_lang == ' '){
+                error_msg =`<div class="alert alert-danger" role="alert">The "Target language:" field is required.</div>`
+            }
+
+
+        if(error_msg == '' || error_msg == ' ' ){
+            $('.error-msg').html()
+            return true;
+        }else {
+            $('.error-msg').html(error_msg)
+            return false
+        }
+
+
+    })
 
     $('.edit-freelancer').click(function(event){
         var _this = $(this);
