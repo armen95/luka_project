@@ -43,7 +43,6 @@
 								<td>
 									<a href="/admin/viewFreelancer/{{ $value->id }}" class="btn btn-primary" data-id = "{{ $value->id }}"><i class="fa fa-search"></i></a>
 									<a href="#" class="btn btn-primary edit-freelancer" data-id = "{{ $value->id }}"><i class="fa fa-pencil"></i></a>
-									<a href="#" class="btn btn-danger delete-freelancer" data-id = "{{ $value->id }}"><i class="fa fa-trash"></i></a>
 								</td>
 							</tr>
 						@endforeach

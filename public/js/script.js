@@ -19,24 +19,6 @@ $(function() {
         $('#freelancers-wrapper .group-wrapper').prepend(str);
     })
 
-    $('.delete-freelancer').click(function(event) {
-        var _this = $(this);
-        var id = $(this).data('id');
-        var r = confirm("Are you sure you want to delete?");
-        if(id != '' && r == true){
-            $.ajax({
-                url: '/admin/deleteFreelancer',
-                type: 'POST',
-                dataType: 'json',
-                data: {id: id},
-                success: function (data) {
-                    if(data.success){
-                        _this.parent().parent().remove();
-                    }
-                }
-            })
-        }
-    });
 
     $('.delete-client').click(function(event) {
         var _this = $(this);
