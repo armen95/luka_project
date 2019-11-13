@@ -88,11 +88,11 @@
 						<input type="hidden" name="client_id" id = "client_id" value="">
 						<div class="form-group">
 							<label for="name">Name:</label>
-							<input type="text" class="form-control" value="" name = "name" id="name" required>
+							<input type="text" class="form-control" value="" name = "name" id="name" >
 						</div>
 						<div class="form-group">
 							<label for="email">Email:</label>
-							<input type="email" class="form-control" value="" name = "email" id="email" required>
+							<input type="email" class="form-control" value="" name = "email" id="email" >
 						</div>
 						<div class="form-group">
 							<label for="legal_name">Legal name:</label>

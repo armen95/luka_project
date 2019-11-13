@@ -8,12 +8,12 @@
 					{{ csrf_field() }}
 					<div class="form-group">
 						<p class="text-danger">{{$errors->first('name')}}</p>
-						<label for="name">Name:</label>
+						<label for="name">Name: <b class="text-danger">*</b></label>
 						<input type="text" class="form-control" value="{{ old('name') }}" name = "name" id="name">
 					</div>
 					<div class="form-group">
 						<p class="text-danger">{{$errors->first('client_id')}}</p>
-						<label for="">Client</label>
+						<label for="">Client: <b class="text-danger">*</b></label>
 						@if(!empty($clients))
 							<select name = "client_id" id = "client_id" class="form-control">
 								<option value="">Choose Client</option>

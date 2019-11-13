@@ -80,16 +80,12 @@ $(function() {
     $('#editOrderForm').submit(function(event){
         var name =  $("#editOrderForm #name").val();
         var client_id = $("#editOrderForm #client_id").val();
-        var deadline = $("#editOrderForm #deadline").val();
         var error_msg = '';
         if(name == '' || name == ' '){
             error_msg = `<div class="alert alert-danger" role="alert">The "Name:" field is required.</div>`
         }
         if(client_id == '' || client_id == ' '){
             error_msg =`<div class="alert alert-danger" role="alert">The "Client:" field is required.</div>`
-        }
-        if(deadline == '' || deadline == ' '){
-            error_msg =`<div class="alert alert-danger" role="alert">The "Deadline:" field is required.</div>`
         }
 
         if(error_msg == '' || error_msg == ' ' ){
@@ -118,6 +114,7 @@ $(function() {
                         var result = data.result;
                         var order_freelancers = data.order_freelancers;
 
+                        console.log(data.date)
                         $("#editOrderForm #order_id").val(result.id);
                         $("#editOrderForm #name").val(result.name);
                         $("#editOrderForm #deadline").val(data.date);
@@ -165,17 +162,9 @@ $(function() {
 
     $('#editClientForm').submit(function(event){
         var name =  $("#editClientForm #name").val();
-        var email = $("#editClientForm #email").val();
-        var post_index =  $("#editClientForm #post_index").val();
         var error_msg = '';
         if(name == '' || name == ' '){
             error_msg = `<div class="alert alert-danger" role="alert">The "Name:" field is required.</div>`
-        }
-        if(email == '' || email == ' '){
-            error_msg =`<div class="alert alert-danger" role="alert">The "Email:" field is required.</div>`
-        }
-        if(post_index == '' || post_index == ' '){
-            error_msg =`<div class="alert alert-danger" role="alert">The "Post index:" field is required.</div>`
         }
 
         if(error_msg == '' || error_msg == ' ' ){
@@ -225,23 +214,10 @@ $(function() {
 
     $('#editFreelancerForm').submit(function(event){
         var name =  $("#editFreelancerForm #name").val();
-        var email = $("#editFreelancerForm #email").val();
-        var source_lang =  $("#editFreelancerForm #source_lang").val();
-        var target_lang = $("#editFreelancerForm #target_lang").val();
         var error_msg = '';
             if(name == '' || name == ' '){
                 error_msg = `<div class="alert alert-danger" role="alert">The "Name:" field is required.</div>`
             }
-            if(email == '' || email == ' '){
-                error_msg =`<div class="alert alert-danger" role="alert">The "Email:" field is required.</div>`
-            }
-            if(source_lang == '' || source_lang == ' '){
-                error_msg =`<div class="alert alert-danger" role="alert">The "Source language:" field is required.</div>`
-            }
-            if(target_lang == '' || target_lang == ' '){
-                error_msg =`<div class="alert alert-danger" role="alert">The "Target language:" field is required.</div>`
-            }
-
 
         if(error_msg == '' || error_msg == ' ' ){
             $('.error-msg').html()

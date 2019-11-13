@@ -125,7 +125,7 @@ class AdminController extends Controller
 		return redirect()->back();
 
 	}
-	
+
     public function deleteOrder(Request $request){
 		$id = $request->id;
 		if(isset($id) && !empty($id)){
@@ -167,7 +167,10 @@ class AdminController extends Controller
             $result = Orders::find($id);
             $order_freelancers = OrderFreelancers::where('order_id', $id)->with('freelancers')->get();
             $freelancers = Freelancers::all();
-            $date = date('Y-m-d\TH:i:s', strtotime($result->deadline));
+            $date ='';
+            if(!empty($result->deadline)){
+                $date = date('Y-m-d\TH:i:s', strtotime($result->deadline));
+            }
             echo json_encode(array(
                 'success' => true,
                 'result' => $result,
@@ -330,8 +333,8 @@ class AdminController extends Controller
 
 		$rules = [
             'name' => 'required',
-            'email' => 'required|email|unique:clients,email',
-            'post_index' => 'numeric'
+            'email' => 'email|unique:clients,email|nullable',
+            'post_index' => 'numeric|nullable'
 
         ];
 
@@ -363,8 +366,7 @@ class AdminController extends Controller
 		$rules = [
             'name' => 'required',
             'client_id' => 'required',
-            'freelancer_id' => 'required',
-            'deadline' => 'required',
+//            'freelancer_id' => 'required',
         ];
 
 
@@ -407,9 +409,7 @@ class AdminController extends Controller
 
 		$rules = [
             'name' => 'required',
-            'source_lang' => 'required',
-            'target_lang' => 'required',
-            'email' => 'email|unique:contractors,email'
+            'email' => 'email|unique:contractors,email|nullable'
 
         ];
 
@@ -461,9 +461,7 @@ class AdminController extends Controller
 
         $rules = [
             'name' => 'required',
-            'source_lang' => 'required',
-            'target_lang' => 'required',
-            'email' => 'email|unique:contractors,email'
+            'email' => 'email|unique:contractors,email|nullable'
 
         ];
 
